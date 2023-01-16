@@ -24,5 +24,15 @@ namespace WindowsEF.Models
         [Column(TypeName = "varchar")]
         [StringLength(1)]
         public string LineaProducto { get; set; }
+
+
+        [ForeignKey(nameof(categoria))]
+        public int CategoriaId { get; set; }
+
+        #region Propiedades de navegacion
+        //[ForeignKey("CategoriaId")]
+        public Categoria categoria { get; set; }
+        #endregion
+
     }
 }

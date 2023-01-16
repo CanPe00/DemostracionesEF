@@ -18,6 +18,10 @@ namespace WindowsEF.Models
         [StringLength(50)] //Long de la cadena
         [Required] //no acepta nulls / es obligatorio
         public string Nombre { get; set; }
-        
+
+        #region Propiedades de navegacion
+        public List<Producto> Productos { get; set; }
+        #endregion  
+
     }
 }
