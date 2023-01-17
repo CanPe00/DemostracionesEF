@@ -40,33 +40,52 @@ namespace WindowsEFEscuela
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
-            
-            Alumno alumno = new Alumno() {
-                Nombre = txtNombre.Text,
-                Apellido = txtApellido.Text,
-                FechaNacimiento = dtpFechaNac.Value,
-
-                ProfesorId = cboProfesor.SelectedIndex + 1
-            };
-           
-
-
-
-            int filasAfectadas = AbmAlumno.Insert(alumno);
-
-            if (filasAfectadas > 0)
+            if (validarInsert())
             {
-                lblMsjInsertar.ForeColor = Color.Green;
-                lblMsjInsertar.Text = "Insert ok";
-                Limpiar();
-                MostrarTodosAlumnos();
+                Alumno alumno = new Alumno()
+                {
+                    Nombre = txtNombre.Text,
+                    Apellido = txtApellido.Text,
+                    FechaNacimiento = dtpFechaNac.Value,
+
+                    ProfesorId = cboProfesor.SelectedIndex + 1
+                };
+
+
+                int filasAfectadas = AbmAlumno.Insert(alumno);
+
+                if (filasAfectadas > 0)
+                {
+                    lblMsjInsertar.ForeColor = Color.Green;
+                    lblMsjInsertar.Text = "Insert ok";
+                    Limpiar();
+                    MostrarTodosAlumnos();
+
+                }
+                else
+                {
+                    lblMsjInsertar.ForeColor = Color.Red;
+                    lblMsjInsertar.Text = "Error al insertar";
+                }
 
             }
             else
             {
-                lblMsjInsertar.ForeColor = Color.Red;
-                lblMsjInsertar.Text = "Error al insertar";
+                MessageBox.Show("Debe completar todos los datos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+
+        }
+
+        private bool validarInsert()
+        {
+            if (txtNombre.Text == "")
+            { return false; }
+            else if (txtApellido.Text == "")
+            { return false; }
+            else if (cboProfesor.SelectedIndex == -1)
+            { return false; }
+            return true;
         }
 
         private void Limpiar()
@@ -79,71 +98,111 @@ namespace WindowsEFEscuela
 
         private void btModificar_Click(object sender, EventArgs e)
         {
-            Alumno alumno = new Alumno()
+            if (validar())
             {
-                Nombre = txtNombre.Text,
-                Apellido = txtApellido.Text,
-                FechaNacimiento = dtpFechaNac.Value,
-                ProfesorId = cboProfesor.SelectedIndex + 1,
-                IdAlumno = Convert.ToInt32(txtId.Text)
-            };
+                Alumno alumno = new Alumno()
+                {
+                    Nombre = txtNombre.Text,
+                    Apellido = txtApellido.Text,
+                    FechaNacimiento = dtpFechaNac.Value,
+                    ProfesorId = cboProfesor.SelectedIndex + 1,
+                    IdAlumno = Convert.ToInt32(txtId.Text)
+                };
 
 
 
-            int filasAfectadas = AbmAlumno.Update(alumno);
+                int filasAfectadas = AbmAlumno.Update(alumno);
 
-            if (filasAfectadas > 0)
-            {
-                lblMsjModificar.ForeColor = Color.Green;
-                lblMsjModificar.Text = "Update ok";
-                Limpiar();
-                MostrarTodosAlumnos();
+                if (filasAfectadas > 0)
+                {
+                    lblMsjModificar.ForeColor = Color.Green;
+                    lblMsjModificar.Text = "Update ok";
+                    Limpiar();
+                    MostrarTodosAlumnos();
+
+                }
+                else
+                {
+                    lblMsjModificar.ForeColor = Color.Red;
+                    lblMsjModificar.Text = "Error al actualizar";
+                }
 
             }
             else
             {
-                lblMsjModificar.ForeColor = Color.Red;
-                lblMsjModificar.Text = "Error al actualizar";
+                MessageBox.Show("Debe completar todos los datos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+
+        }
+
+        private bool validar()
+        {
+            if (txtNombre.Text=="")
+            { return false; }
+            else if (txtId.Text == "")
+            { return false; }
+            else if(txtApellido.Text=="")
+            { return false; }
+            else if(cboProfesor.SelectedIndex == -1)
+            { return false; }
+            return true;
 
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            Alumno alumno = new Alumno()
+            if (validar())
             {
-                Nombre = txtNombre.Text,
-                Apellido = txtApellido.Text,
-                FechaNacimiento = dtpFechaNac.Value,
-                ProfesorId = cboProfesor.SelectedIndex + 1,
-                IdAlumno = Convert.ToInt32(txtId.Text)
-            };
+                Alumno alumno = new Alumno()
+                {
+                    Nombre = txtNombre.Text,
+                    Apellido = txtApellido.Text,
+                    FechaNacimiento = dtpFechaNac.Value,
+                    ProfesorId = cboProfesor.SelectedIndex + 1,
+                    IdAlumno = Convert.ToInt32(txtId.Text)
+                };
 
-            int filasAfectadas = AbmAlumno.Delete(alumno);
+                int filasAfectadas = AbmAlumno.Delete(alumno);
 
-            if (filasAfectadas > 0)
-            {
-                lblMsjEliminar.ForeColor = Color.Green;
-                lblMsjEliminar.Text = "Delete ok";
-                Limpiar();
-                MostrarTodosAlumnos();
+                if (filasAfectadas > 0)
+                {
+                    lblMsjEliminar.ForeColor = Color.Green;
+                    lblMsjEliminar.Text = "Delete ok";
+                    Limpiar();
+                    MostrarTodosAlumnos();
+
+                }
+                else
+                {
+                    lblMsjEliminar.ForeColor = Color.Red;
+                    lblMsjEliminar.Text = "Error al eliminar";
+                }
 
             }
             else
             {
-                lblMsjEliminar.ForeColor = Color.Red;
-                lblMsjEliminar.Text = "Error al eliminar";
+                MessageBox.Show("Debe completar todos los datos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void btnBuscarPorId_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(txtId.Text);
+            if (txtId.Text!= "")
+            {
+                int id = Convert.ToInt32(txtId.Text);
 
-            Alumno alumno = AbmAlumno.SelectWhereById(id);
-            Limpiar();
+                Alumno alumno = AbmAlumno.SelectWhereById(id);
+                Limpiar();
 
-            lblBuscarPorId.Text = "Nombre: " + alumno.Nombre;
+                lblBuscarPorId.Text = "Nombre: " + alumno.Nombre;
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar ID","ERROR",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void grdAlumnos_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
