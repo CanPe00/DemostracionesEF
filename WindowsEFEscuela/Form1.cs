@@ -46,7 +46,7 @@ namespace WindowsEFEscuela
                 {
                     Nombre = txtNombre.Text,
                     Apellido = txtApellido.Text,
-                    FechaNacimiento = dtpFechaNac.Value,
+                    FechaNacimiento = dtpFechaNac.Value.Date,
 
                     ProfesorId = cboProfesor.SelectedIndex + 1
                 };
