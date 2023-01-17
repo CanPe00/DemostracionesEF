@@ -26,6 +26,10 @@ namespace WindowsEFEscuela.Models
 
         public DateTime? FechaNacimiento { get; set; }
 
-        
+        public Profesor profesor { get; set; }
+
+        [ForeignKey(nameof(profesor))]
+        public int ProfesorId { get; set; }
+
     }
 }

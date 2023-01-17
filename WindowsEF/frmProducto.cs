@@ -12,40 +12,41 @@ using WindowsEF.Models;
 
 namespace WindowsEF
 {
-    public partial class frmCategoria : Form
+    public partial class frmProducto : Form
     {
-        
-
-        public frmCategoria()
+        public frmProducto()
         {
             InitializeComponent();
         }
 
-        private void frmCategoria_Load(object sender, EventArgs e)
+        private void frmProducto_Load(object sender, EventArgs e)
         {
-            MostrarTodasCategorias();
-
+            MostrarTodosProductos();
         }
 
-        private void MostrarTodasCategorias()
+        private void MostrarTodosProductos()
         {
-            grdCategoria.DataSource = AbmCategoria.SelectAll();
+            grdProducto.DataSource = AbmProducto.SelectAll();
         }
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
-            Categoria categoria = new Categoria() {
-                Nombre = txtNombre.Text
+            Producto producto = new Producto()
+            {
+                Nombre = txtNombre.Text,
+                Precio = Convert.ToDecimal(txtPrecio.Text),
+                LineaProducto = txtLineaProducto.Text,
+
             };
 
-            int filasAfectadas = AbmCategoria.Insert(categoria);
+            int filasAfectadas = AbmProducto.Insert(producto);
 
-            if (filasAfectadas>0)
+            if (filasAfectadas > 0)
             {
                 lblMsjInsertar.ForeColor = Color.Green;
                 lblMsjInsertar.Text = "Insert ok";
                 Limpiar();
-                MostrarTodasCategorias();
+                MostrarTodosProductos();
 
             }
             else
@@ -53,6 +54,7 @@ namespace WindowsEF
                 lblMsjInsertar.ForeColor = Color.Red;
                 lblMsjInsertar.Text = "Error al insertar";
             }
+
         }
 
         private void Limpiar()
@@ -63,20 +65,24 @@ namespace WindowsEF
 
         private void btModificar_Click(object sender, EventArgs e)
         {
-            Categoria categoria = new Categoria()
+            Producto producto = new Producto()
             {
+                ProductoId = Convert.ToInt32(txtId.Text),
                 Nombre = txtNombre.Text,
-                Id = Convert.ToInt32(txtId.Text)
-            };
+                Precio = Convert.ToDecimal(txtPrecio.Text),
+                LineaProducto = txtLineaProducto.Text,
 
-            int filasAfectadas = AbmCategoria.Update(categoria);
+            };
+            
+
+            int filasAfectadas = AbmProducto.Update(producto);
 
             if (filasAfectadas > 0)
             {
                 lblMsjModificar.ForeColor = Color.Green;
                 lblMsjModificar.Text = "Update ok";
                 Limpiar();
-                MostrarTodasCategorias();
+                MostrarTodosProductos();
 
             }
             else
@@ -89,20 +95,23 @@ namespace WindowsEF
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            Categoria categoria = new Categoria()
+            Producto producto = new Producto()
             {
+                ProductoId = Convert.ToInt32(txtId.Text),
                 Nombre = txtNombre.Text,
-                Id=Convert.ToInt32(txtId.Text)
+                Precio = Convert.ToDecimal(txtPrecio.Text),
+                LineaProducto = txtLineaProducto.Text,
+
             };
 
-            int filasAfectadas = AbmCategoria.Delete(categoria);
+            int filasAfectadas = AbmProducto.Delete(producto);
 
             if (filasAfectadas > 0)
             {
                 lblMsjEliminar.ForeColor = Color.Green;
                 lblMsjEliminar.Text = "Delete ok";
                 Limpiar();
-                MostrarTodasCategorias();
+                MostrarTodosProductos();
 
             }
             else
@@ -117,17 +126,11 @@ namespace WindowsEF
         {
             int id = Convert.ToInt32(txtId.Text);
 
-            Categoria categoria = AbmCategoria.SelectWhereById(id);
+            Producto producto = AbmProducto.SelectWhereById(id);
             Limpiar();
 
-            lblBuscarPorId.Text = "Nombre: " + categoria.Nombre;
-        }
+            lblBuscarPorId.Text = "Nombre: " + producto.Nombre;
 
-        private void grdCategoria_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-            txtId.Text = grdCategoria.Rows[e.RowIndex].Cells[0].Value.ToString();
-            txtNombre.Text = grdCategoria.Rows[e.RowIndex].Cells[1].Value.ToString();
         }
     }
 }

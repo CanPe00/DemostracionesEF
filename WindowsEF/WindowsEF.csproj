@@ -57,12 +57,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dac\AbmCategoria.cs" />
+    <Compile Include="Dac\AbmProducto.cs" />
     <Compile Include="Data\DBProductosContext.cs" />
     <Compile Include="frmCategoria.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCategoria.Designer.cs">
       <DependentUpon>frmCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProducto.Designer.cs">
+      <DependentUpon>frmProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202301161820088_initial.cs" />
     <Compile Include="Migrations\202301161820088_initial.designer.cs">
@@ -87,6 +94,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmCategoria.resx">
       <DependentUpon>frmCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProducto.resx">
+      <DependentUpon>frmProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301161820088_initial.resx">
       <DependentUpon>202301161820088_initial.cs</DependentUpon>
